@@ -1,15 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
-import Spotlight from './Spotlight';
-import Overview from './Overview';
-import './App.css';
+import React from "react";
+import Spotlight from "./components/Spotlight";
+import Overview from "./components/Overview";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
       <div>
-      <Overview />
-      <Spotlight />
+        <Overview />
+        <Spotlight />
       </div>
     </div>
   );
