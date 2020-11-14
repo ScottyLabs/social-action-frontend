@@ -4,19 +4,18 @@
   "version": "1.0",
 
   "chrome_url_overrides": {
-      "newtab": "index.html"
+    "newtab": "index.html"
   },
 
-  "browser_action": {
-      "default_icon": "dog.png"
+  "icons": {
+    "16": "dog.png",
+    "48": "dog.png",
+    "128": "dog.png"
   },
-
-  "permissions": [
-      "tabs"
-  ],
-
   "background": {
-      "scripts": ["background.js"],
-      "persistent": false
-  }
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "browser_action": {},
+  "content_security_policy": "script-src 'self' 'sha256-/bCkSd+7RhLt19cqpHZ+yIR+D6lSNAo5sGPj5iT+szg='; object-src 'self'"
 }
