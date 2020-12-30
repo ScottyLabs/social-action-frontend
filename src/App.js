@@ -1,6 +1,7 @@
 import React from "react";
 import Spotlight from "./components/Spotlight";
 import Overview from "./components/Overview";
+import Header from "./components/Preferences";
 import "./App.css";
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
       <div>
         <Overview />
         <Spotlight />
+        <Header />
       </div>
     </div>
   );
