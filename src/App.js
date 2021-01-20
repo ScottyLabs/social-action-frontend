@@ -8,7 +8,7 @@ import "./App.css";
 
 const apiBaseURL = "https://api.unsplash.com/";
 const authHeader = "Client-ID " + process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
-const unsplashURLSuffix = "?utm_source=medium&utm_medium=referral";
+const unsplashURLSuffix = "?utm_source=pgh_keeps_tabs&utm_medium=referral";
 const unsplashURL = "https://unsplash.com/" + unsplashURLSuffix;
 
 function App() {
@@ -72,8 +72,16 @@ function App() {
       </div>
       {unsplashRes && (
         <p>
-          Photo by <a href={unsplashRes.userURL}>{unsplashRes.userFullName}</a>{" "}
-          on <a href={unsplashURL}>Unsplash</a>
+          <mark>
+            Photo by{" "}
+            <a className="unsplash" href={unsplashRes.userURL}>
+              {unsplashRes.userFullName}
+            </a>{" "}
+            on{" "}
+            <a className="unsplash" href={unsplashURL}>
+              Unsplash
+            </a>
+          </mark>
         </p>
       )}
     </div>
