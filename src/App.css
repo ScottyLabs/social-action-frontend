@@ -13,6 +13,15 @@ body {
   padding: 5rem;
 }
 
+mark {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+a.unsplash {
+  color: white;
+}
+
 .App > div {
   margin: auto;
   display: flex;
