@@ -16,6 +16,7 @@
     "scripts": ["background.js"],
     "persistent": false
   },
+  "permissions": ["storage"],
   "browser_action": {},
   "content_security_policy": "script-src 'self' 'sha256-/bCkSd+7RhLt19cqpHZ+yIR+D6lSNAo5sGPj5iT+szg='; object-src 'self'"
 }
