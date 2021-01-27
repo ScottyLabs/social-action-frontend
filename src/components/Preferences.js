@@ -2,29 +2,30 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import "./Preferences.css";
+import CheckBox from "./Checkbox";
 
 function Preferences(props) {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [recRestaurant, setRestaurant] = useState(false);
+  const [rec, setRec] = useState([
+    { id: 1, value: "restaurant", isChecked: false },
+    { id: 2, value: "beauty", isChecked: false },
+    { id: 3, value: "education", isChecked: false },
+  ]);
+  // const [recRestaurant, setRestaurant] = useState(false);
 
-  const [recBeauty, setBeauty] = useState(false);
-  const [recEducation, setEducation] = useState(false);
+  // const [recBeauty, setBeauty] = useState(false);
+  // const [recEducation, setEducation] = useState(false);
+  rec.forEach(restorePref);
+  setRec(rec);
 
-  chrome.storage.sync.get({ restaurant: false }, function (result) {
-    setRestaurant(result.restaurant);
-    console.log(recRestaurant);
-  });
+  function restorePref(index, value, isChecked) {
+    chrome.storage.sync.get({ value: false }, function (result) {
+      rec[index].isChecked = result.value;
+      // console.log();
+    });
+  }
 
-  chrome.storage.sync.get({ beauty: false }, function (result) {
-    setBeauty(result.beauty);
-    // console.log(recRestaurant);
-  });
-
-  chrome.storage.sync.get({ education: false }, function (result) {
-    setEducation(result.education);
-    // console.log(recRestaurant);
-  });
-
+  /*
   function handleRestaurantChange() {
     setRestaurant(!recRestaurant);
     chrome.storage.sync.set({ restaurant: !recRestaurant }, function () {
@@ -33,23 +34,29 @@ function Preferences(props) {
       console.log("Settings saved");
     });
   }
+  <label>
+            Restaurant:
+            <input
+              type="checkbox"
+              onChange={handleRestaurantChange}
+              checked={recRestaurant}
+            />
+          </label>
+*/
 
-  function handleBeautyChange() {
-    setBeauty(!recBeauty);
-    chrome.storage.sync.set({ beauty: !recBeauty }, function () {
+  function handleRecCheck(event) {
+    let name = event.target.value;
+    chrome.storage.sync.set({ name: event.target.checked }, function () {
       // Notify that we saved.
-      console.log(recBeauty);
       console.log("Settings saved");
     });
-  }
 
-  function handleEducationChange() {
-    setEducation(!recEducation);
-    chrome.storage.sync.set({ education: !recEducation }, function () {
-      // Notify that we saved.
-      console.log(recEducation);
-      console.log("Settings saved");
+    rec.forEach((option) => {
+      if (option.value === event.target.value)
+        option.isChecked = event.target.checked;
     });
+    // this.setState({fruites: fruites})
+    setRec({ rec: rec });
   }
 
   function openModal() {
@@ -70,30 +77,12 @@ function Preferences(props) {
 
         <form class="settings-form">
           <h2>Types of Recommendations </h2>
-          <label>
-            Restaurant:
-            <input
-              type="checkbox"
-              onChange={handleRestaurantChange}
-              checked={recRestaurant}
-            />
-          </label>
-          <label>
-            Beauty:
-            <input
-              type="checkbox"
-              onChange={handleBeautyChange}
-              checked={recBeauty}
-            />
-          </label>
-          <label>
-            Education:
-            <input
-              type="checkbox"
-              onChange={handleEducationChange}
-              checked={recEducation}
-            />
-          </label>
+
+          <ul>
+            {rec.map((option) => {
+              return <CheckBox handleCheck={handleRecCheck} {...rec} />;
+            })}
+          </ul>
         </form>
       </Modal>
     </div>
