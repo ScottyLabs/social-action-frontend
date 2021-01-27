@@ -56,9 +56,7 @@ function App() {
       .catch((err) => console.error(err));
   }
 
-  useEffect(() => {
-    setRandomPhotoURL();
-  }, []);
+  useEffect(setRandomPhotoURL, []);
 
   return (
     <div
@@ -74,7 +72,7 @@ function App() {
       </div>
       {unsplashRes && (
         <p>
-          <mark>
+          <mark className="unsplash-mark">
             Photo by{" "}
             <a className="unsplash" href={unsplashRes.userURL}>
               {unsplashRes.userFullName}
