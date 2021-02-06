@@ -2,48 +2,47 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import "./Preferences.css";
-import CheckBox from "./Checkbox";
-const def = {
-  restaurant: { id: 1, isChecked: false },
-  beauty: { id: 2, isChecked: false },
-  education: { id: 3, isChecked: false },
+import { Checkbox } from "semantic-ui-react";
+
+const default_prefs = {
+  restaurant: { name: "Restaurant", checked: false },
+  beauty: { name: "Beauty", checked: false },
+  education: { name: "Education", checked: false },
 };
 
-function Preferences(props) {
+function Preferences() {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [rec, setRec] = useState([]);
+  const [prefs, setPrefs] = useState({});
 
   React.useEffect(() => {
-    chrome.storage.sync.get({ options: def }, function (result) {
-      setRec(result.options);
-      console.log("hello");
-      console.log(result.options);
-    });
+    chrome.storage.local.get(
+      { business_prefs: default_prefs },
+      function (result) {
+        setPrefs(result.business_prefs);
+        console.log(
+          "Fetched chrome storage local business_prefs",
+          result.business_prefs
+        );
+      }
+    );
   }, []);
 
-  /*
-let copy = {...rec}
-copy[event.target.value].isChecked = blah blah
-*/
-  function handleRecCheck(event) {
-    // abc = {...dict, [hello.value]: {...dict[hello.value], "y":122}};
-    let updated_option = event.target.value;
+  function handlePrefsCheck(pref, checked) {
+    let updated_prefs = {
+      ...prefs,
+      [pref]: { ...prefs[pref], checked: checked },
+    };
+    console.log(`Updated ${pref} to`, updated_prefs[pref].checked);
 
-    let originalCheck = rec[updated_option].isChecked;
-    let update = { ...rec };
-    update[updated_option].isChecked = !originalCheck;
-
-    chrome.storage.sync.set({ options: update }, function () {
+    chrome.storage.local.set({ business_prefs: updated_prefs }, function () {
       // Notify that we saved.
-      console.log("Settings saved");
+      setPrefs(updated_prefs);
+      console.log("Set chrome storage local business_prefs", updated_prefs);
     });
-
-    setRec(update);
-    console.log(updated_option);
-    console.log(rec);
   }
 
   function openModal() {
+    console.log("Current prefs", prefs);
     setIsOpen(true);
   }
 
@@ -60,15 +59,26 @@ copy[event.target.value].isChecked = blah blah
         <h1>Settings</h1>
 
         <form class="settings-form">
-          <h2>Types of Recommendations </h2>
-
-          <ul>
-            {Object.keys(rec).map((option, id) => {
-              return (
-                <CheckBox handleCheck={handleRecCheck} value={option} id={id} />
-              );
-            })}
-          </ul>
+          <h2>Types of Businesses </h2>
+          <div id="checkboxes">
+            <ul>
+              {Object.keys(prefs).map((pref, id) => {
+                return (
+                  <li>
+                    <Checkbox
+                      toggle
+                      id={id}
+                      label={prefs[pref].name}
+                      onChange={(e, { checked }) =>
+                        handlePrefsCheck(pref, checked)
+                      }
+                      checked={prefs[pref].checked}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </form>
       </Modal>
     </div>
