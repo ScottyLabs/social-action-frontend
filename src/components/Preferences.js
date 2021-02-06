@@ -2,57 +2,47 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import "./Preferences.css";
+import { Checkbox } from "semantic-ui-react";
 
-function Preferences(props) {
+const default_prefs = {
+  restaurant: { name: "Restaurant", checked: false },
+  beauty: { name: "Beauty", checked: false },
+  education: { name: "Education", checked: false },
+};
+
+function Preferences() {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [recRestaurant, setRestaurant] = useState(false);
+  const [prefs, setPrefs] = useState({});
 
-  const [recBeauty, setBeauty] = useState(false);
-  const [recEducation, setEducation] = useState(false);
+  React.useEffect(() => {
+    chrome.storage.local.get(
+      { business_prefs: default_prefs },
+      function (result) {
+        setPrefs(result.business_prefs);
+        console.log(
+          "Fetched chrome storage local business_prefs",
+          result.business_prefs
+        );
+      }
+    );
+  }, []);
 
-  chrome.storage.sync.get({ restaurant: false }, function (result) {
-    setRestaurant(result.restaurant);
-    console.log(recRestaurant);
-  });
+  function handlePrefsCheck(pref, checked) {
+    let updated_prefs = {
+      ...prefs,
+      [pref]: { ...prefs[pref], checked: checked },
+    };
+    console.log(`Updated ${pref} to`, updated_prefs[pref].checked);
 
-  chrome.storage.sync.get({ beauty: false }, function (result) {
-    setBeauty(result.beauty);
-    // console.log(recRestaurant);
-  });
-
-  chrome.storage.sync.get({ education: false }, function (result) {
-    setEducation(result.education);
-    // console.log(recRestaurant);
-  });
-
-  function handleRestaurantChange() {
-    setRestaurant(!recRestaurant);
-    chrome.storage.sync.set({ restaurant: !recRestaurant }, function () {
+    chrome.storage.local.set({ business_prefs: updated_prefs }, function () {
       // Notify that we saved.
-      console.log(recRestaurant);
-      console.log("Settings saved");
-    });
-  }
-
-  function handleBeautyChange() {
-    setBeauty(!recBeauty);
-    chrome.storage.sync.set({ beauty: !recBeauty }, function () {
-      // Notify that we saved.
-      console.log(recBeauty);
-      console.log("Settings saved");
-    });
-  }
-
-  function handleEducationChange() {
-    setEducation(!recEducation);
-    chrome.storage.sync.set({ education: !recEducation }, function () {
-      // Notify that we saved.
-      console.log(recEducation);
-      console.log("Settings saved");
+      setPrefs(updated_prefs);
+      console.log("Set chrome storage local business_prefs", updated_prefs);
     });
   }
 
   function openModal() {
+    console.log("Current prefs", prefs);
     setIsOpen(true);
   }
 
@@ -69,31 +59,26 @@ function Preferences(props) {
         <h1>Settings</h1>
 
         <form class="settings-form">
-          <h2>Types of Recommendations </h2>
-          <label>
-            Restaurant:
-            <input
-              type="checkbox"
-              onChange={handleRestaurantChange}
-              checked={recRestaurant}
-            />
-          </label>
-          <label>
-            Beauty:
-            <input
-              type="checkbox"
-              onChange={handleBeautyChange}
-              checked={recBeauty}
-            />
-          </label>
-          <label>
-            Education:
-            <input
-              type="checkbox"
-              onChange={handleEducationChange}
-              checked={recEducation}
-            />
-          </label>
+          <h2>Types of Businesses </h2>
+          <div id="checkboxes">
+            <ul>
+              {Object.keys(prefs).map((pref, id) => {
+                return (
+                  <li>
+                    <Checkbox
+                      toggle
+                      id={id}
+                      label={prefs[pref].name}
+                      onChange={(e, { checked }) =>
+                        handlePrefsCheck(pref, checked)
+                      }
+                      checked={prefs[pref].checked}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </form>
       </Modal>
     </div>

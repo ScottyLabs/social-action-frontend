@@ -3,6 +3,7 @@ import axios from "axios";
 
 import Spotlight from "./components/Spotlight";
 import Overview from "./components/Overview";
+import Preferences from "./components/Preferences";
 import "./App.css";
 
 const apiBaseURL = "https://api.unsplash.com/";
@@ -21,7 +22,7 @@ function App() {
       <div>
         <Overview />
         <Spotlight />
-        {/* <Preferences /> */}
+        <Preferences />
       </div>
       <UnsplashSignature />
     </div>
