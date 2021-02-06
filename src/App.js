@@ -3,7 +3,7 @@ import axios from "axios";
 
 import Spotlight from "./components/Spotlight";
 import Overview from "./components/Overview";
-// import Preferences from "./components/Preferences";
+import Preferences from "./components/Preferences";
 import "./App.css";
 // import { getRandomPhotoURL } from "./unsplash.js";
 
@@ -68,7 +68,7 @@ function App() {
       <div>
         <Overview />
         <Spotlight />
-        {/* <Preferences /> */}
+        <Preferences />
       </div>
       {unsplashRes && (
         <p>
