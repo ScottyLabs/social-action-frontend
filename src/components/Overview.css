@@ -16,9 +16,19 @@
 .overview-body {
   margin-top: 3rem;
   color: white;
+  text-align: center;
 }
 .overview-body h2 {
   font-weight: normal;
+}
+.edit {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.label-margin {
+  margin-bottom: 5px;
+  /* padding: 5px; */
 }
 
 input {

@@ -35,12 +35,15 @@ function Overview(props) {
           </Label>
         ) : (
           preferences.map((pref) => (
-            <Label as="a" tag size="large" color={labelColorDict[pref]}>
-              {pref}
-              <Icon name="delete" onClick={() => removePref(pref)} />
-            </Label>
+            <span className="label-margin">
+              <Label tag size="large" color={labelColorDict[pref]}>
+                {pref}
+                <Icon name="delete" onClick={() => removePref(pref)} />
+              </Label>
+            </span>
           ))
         )}
+        <Icon name="plus circle" />
       </div>
     </div>
   );
