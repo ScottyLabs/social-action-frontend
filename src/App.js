@@ -28,18 +28,18 @@ function App() {
     setIsOpen(false);
   }
 
-  // React.useEffect(() => {
-  //   chrome.storage.local.get(
-  //     { business_prefs: default_prefs },
-  //     function (result) {
-  //       setPrefs(result.business_prefs);
-  //       console.log(
-  //         "Fetched chrome storage local business_prefs",
-  //         result.business_prefs
-  //       );
-  //     }
-  //   );
-  // }, []);
+  React.useEffect(() => {
+    chrome.storage.local.get(
+      { business_prefs: default_prefs },
+      function (result) {
+        setPrefs(result.business_prefs);
+        console.log(
+          "Fetched chrome storage local business_prefs",
+          result.business_prefs
+        );
+      }
+    );
+  }, []);
 
   function handlePrefsCheck(pref, checked) {
     let updated_prefs = {

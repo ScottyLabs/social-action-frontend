@@ -18,11 +18,7 @@ function Spotlight(props) {
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
             commodo sollicitudin quam, sit amet ornare felis lacinia in. Duis
-            non enim id lorem vestibulum fringilla. Morbi ex elit, bibendum sed
-            nibh nec, lobortis dapibus arcu. Praesent finibus at purus id
-            commodo. Vivamus tempus ex bibendum, laoreet tellus sed, semper
-            nunc. Mauris imperdiet fermentum orci eget tincidunt. Fusce libero
-            augue, sollicitudin in libero eget, pulvinar commodo nunc.
+            non enim id lorem vestibulum fringilla.
           </p>
         </div>
         <div>

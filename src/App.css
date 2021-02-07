@@ -7,16 +7,38 @@ body {
   height: 100vh;
   background: url("./assets/cover.jpg");
   background-size: cover;
-
   font-family: "Roboto", sans-serif;
   box-sizing: border-box;
   padding: 5rem;
 }
 
+.App > div {
+  /* margin: auto; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  /* max-width: 1200px; */
+  max-height: 100%;
+}
+
+.spotlight {
+  width: 50%;
+  /* max-width: 800px; */
+}
+
+.overview {
+  width: 40%;
+  /* max-width: 600px; */
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+}
+
 .unsplash-mark-div {
   position: fixed;
-  bottom: 10px;
-  left: 10px;
+  bottom: 15px;
+  left: 15px;
 }
 
 mark.unsplash-mark {
@@ -26,25 +48,4 @@ mark.unsplash-mark {
 
 a.unsplash {
   color: white;
-}
-
-.App > div {
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  max-height: 100%;
-}
-
-.spotlight {
-  width: 50%;
-  max-width: 800px;
-}
-
-.overview {
-  width: 40%;
-  max-width: 600px;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 20px;
 }

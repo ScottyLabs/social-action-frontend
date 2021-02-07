@@ -25,25 +25,18 @@ function Overview(props) {
       <div className="overview-body">
         <h2>I'm looking to support minority-owned businesses in...</h2>
         <List horizontal className="list-horizontal">
-          {props.prefEntries.length === 0 ? (
-            <Label key="none" size="large">
-              None
-            </Label>
-          ) : (
-            <span>
-              {props.prefEntries.map(([pref, object]) => (
-                <List.Item>
-                  <Label tag size="large" color={labelColorDict[pref]}>
-                    {object.name}
-                    <Icon
-                      name="delete"
-                      onClick={() => props.handlePrefsCheck(pref, false)}
-                    />
-                  </Label>
-                </List.Item>
-              ))}
-            </span>
-          )}
+          {props.prefEntries.map(([pref, object]) => (
+            <List.Item>
+              <Label tag size="large" color={labelColorDict[pref]}>
+                {object.name}
+                <Icon
+                  name="delete"
+                  onClick={() => props.handlePrefsCheck(pref, false)}
+                />
+              </Label>
+            </List.Item>
+          ))}
+
           <List.Item>
             <Icon name="plus circle" onClick={props.openModal} />
           </List.Item>
