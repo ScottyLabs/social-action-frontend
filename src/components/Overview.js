@@ -6,22 +6,18 @@ import { Icon, Label } from "semantic-ui-react";
 import "./Overview.css";
 
 function Overview(props) {
+  /*
+  e.g. props.pref = [
+    ["restaurant", { name: "Restaurants", checked: false }],
+    ...
+  ]
+  */
+
   const labelColorDict = {
-    Restaurants: "red",
-    Beauty: "pink",
-    Construction: "orange",
-    Education: "green",
-  };
-
-  const [preferences, setPreferences] = React.useState([
-    "Restaurants",
-    "Beauty",
-  ]);
-
-  const removePref = (pref) => {
-    let newPreferences = [...preferences];
-    newPreferences = newPreferences.filter((e) => e !== pref);
-    setPreferences(newPreferences);
+    restaurant: "red",
+    beauty: "pink",
+    construction: "orange",
+    education: "green",
   };
 
   return (
@@ -29,21 +25,24 @@ function Overview(props) {
       <Time />
       <div className="overview-body">
         <Support />
-        {preferences.length === 0 ? (
+        {props.prefEntries.length === 0 ? (
           <Label key="none" size="large">
             None
           </Label>
         ) : (
-          preferences.map((pref) => (
+          props.prefEntries.map(([pref, object]) => (
             <span className="label-margin">
               <Label tag size="large" color={labelColorDict[pref]}>
-                {pref}
-                <Icon name="delete" onClick={() => removePref(pref)} />
+                {object.name}
+                <Icon
+                  name="delete"
+                  onClick={() => props.handlePrefsCheck(pref, false)}
+                />
               </Label>
             </span>
           ))
         )}
-        <Icon name="plus circle" />
+        <Icon name="plus circle" onClick={props.openModal} />
       </div>
     </div>
   );

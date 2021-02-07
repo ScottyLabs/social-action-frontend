@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 
-function UnsplashSignature() {
-  const [unsplashRes, setUnsplashRes] = React.useState(null);
+const apiBaseURL = "https://api.unsplash.com/";
+const authHeader = "Client-ID " + process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
+const unsplashURLSuffix = "?utm_source=pgh_keeps_tabs&utm_medium=referral";
+const unsplashURL = "https://unsplash.com/" + unsplashURLSuffix;
 
+function UnsplashSignature(props) {
   // GET RANDOM PHOTO REQUEST
   function setRandomPhotoURL() {
     return axios
@@ -17,7 +21,7 @@ function UnsplashSignature() {
       })
       .then((res) => {
         console.log(res);
-        setUnsplashRes({
+        props.setUnsplashRes({
           imageURL: res.data.urls.regular,
           userURL: res.data.user.links.html,
           userFullName:
@@ -48,12 +52,12 @@ function UnsplashSignature() {
 
   return (
     <div>
-      {unsplashRes && (
+      {props.unsplashRes && (
         <p>
           <mark className="unsplash-mark">
             Photo by{" "}
-            <a className="unsplash" href={unsplashRes.userURL}>
-              {unsplashRes.userFullName}
+            <a className="unsplash" href={props.unsplashRes.userURL}>
+              {props.unsplashRes.userFullName}
             </a>{" "}
             on{" "}
             <a className="unsplash" href={unsplashURL}>

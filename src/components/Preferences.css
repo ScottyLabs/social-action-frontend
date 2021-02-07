@@ -24,6 +24,12 @@
   padding: 3em;
 }
 
+#checkboxes ul {
+  margin: 10px;
+  list-style: none;
+  float: left;
+}
+
 #color-input {
   border: rgb(63, 61, 61);
 }
