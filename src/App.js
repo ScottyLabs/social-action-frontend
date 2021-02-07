@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 
-import Spotlight from "./components/Spotlight";
-import Overview from "./components/Overview";
+import Spotlight from "./components/spotlight/Spotlight";
+import Overview from "./components/overview/Overview";
 import Preferences from "./components/Preferences";
 import UnsplashSignature from "./components/UnsplashSignature";
 import "./App.css";

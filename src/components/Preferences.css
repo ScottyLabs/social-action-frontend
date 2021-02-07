@@ -4,7 +4,7 @@
 
 #pref-button {
   border: none;
-  background: rgb(255, 255, 255);
+  background: rgba(255, 255, 255, 0.5);
   color: rgb(63, 61, 61);
   padding: 0.5rem 1rem;
   font-weight: bold;
@@ -14,7 +14,7 @@
   right: 10px;
 }
 
-.Modal {
+.modal {
   position: absolute;
   top: 40px;
   left: 40px;
@@ -22,16 +22,6 @@
   bottom: 40px;
   background-color: lavender;
   padding: 3em;
-}
-
-#checkboxes ul {
-  margin: 10px;
-  list-style: none;
-  float: left;
-}
-
-#color-input {
-  border: rgb(63, 61, 61);
 }
 
 .Modal h1 {

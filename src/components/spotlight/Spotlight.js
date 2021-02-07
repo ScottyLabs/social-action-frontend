@@ -2,7 +2,7 @@ import React from "react";
 import Hours from "./Hours";
 import Location from "./Location";
 import Tags from "./Tags";
-import spotlightphoto from "../assets/spotlight-photo.jpg";
+import spotlightphoto from "../../assets/spotlight-photo.jpg";
 
 import "./Spotlight.css";
 
