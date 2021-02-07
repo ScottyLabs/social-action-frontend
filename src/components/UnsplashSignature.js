@@ -51,7 +51,7 @@ function UnsplashSignature(props) {
   useEffect(setRandomPhotoURL, []);
 
   return (
-    <div>
+    <div className="unsplash-mark-div">
       {props.unsplashRes && (
         <p>
           <mark className="unsplash-mark">

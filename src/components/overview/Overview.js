@@ -1,6 +1,5 @@
 import React from "react";
 import Time from "./Time";
-import Support from "..Support";
 import { Icon, Label, List } from "semantic-ui-react";
 
 import "./Overview.css";
@@ -25,13 +24,13 @@ function Overview(props) {
       <Time />
       <div className="overview-body">
         <h2>I'm looking to support minority-owned businesses in...</h2>
-        <List horizontal>
+        <List horizontal className="list-horizontal">
           {props.prefEntries.length === 0 ? (
             <Label key="none" size="large">
               None
             </Label>
           ) : (
-            <div>
+            <span>
               {props.prefEntries.map(([pref, object]) => (
                 <List.Item>
                   <Label tag size="large" color={labelColorDict[pref]}>
@@ -43,7 +42,7 @@ function Overview(props) {
                   </Label>
                 </List.Item>
               ))}
-            </div>
+            </span>
           )}
           <List.Item>
             <Icon name="plus circle" onClick={props.openModal} />

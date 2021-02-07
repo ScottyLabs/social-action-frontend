@@ -9,14 +9,14 @@ import UnsplashSignature from "./components/UnsplashSignature";
 import "./App.css";
 
 const default_prefs = {
-  restaurant: { name: "Restaurants", checked: false },
-  beauty: { name: "Beauty", checked: false },
-  education: { name: "Education", checked: false },
+  restaurant: { name: "Restaurants", checked: true },
+  beauty: { name: "Beauty", checked: true },
+  education: { name: "Education", checked: true },
 };
 
 function App() {
   const [unsplashRes, setUnsplashRes] = React.useState(null);
-  const [prefs, setPrefs] = useState({});
+  const [prefs, setPrefs] = useState(default_prefs);
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -28,18 +28,18 @@ function App() {
     setIsOpen(false);
   }
 
-  React.useEffect(() => {
-    chrome.storage.local.get(
-      { business_prefs: default_prefs },
-      function (result) {
-        setPrefs(result.business_prefs);
-        console.log(
-          "Fetched chrome storage local business_prefs",
-          result.business_prefs
-        );
-      }
-    );
-  }, []);
+  // React.useEffect(() => {
+  //   chrome.storage.local.get(
+  //     { business_prefs: default_prefs },
+  //     function (result) {
+  //       setPrefs(result.business_prefs);
+  //       console.log(
+  //         "Fetched chrome storage local business_prefs",
+  //         result.business_prefs
+  //       );
+  //     }
+  //   );
+  // }, []);
 
   function handlePrefsCheck(pref, checked) {
     let updated_prefs = {

@@ -18,18 +18,13 @@
   color: white;
   text-align: center;
 }
-.overview-body h2 {
-  font-weight: normal;
-}
-.edit {
-  text-align: center;
-  margin-top: 10px;
+
+.list-horizontal {
+  display: inline;
+  text-align: left;
+  width: 100%;
 }
 
-input {
-  border: none;
-  padding: 1rem 0;
-  width: 100%;
-  margin: 1rem 0;
-  font-size: 2rem;
+.overview-body h2 {
+  font-weight: normal;
 }

@@ -13,6 +13,12 @@ body {
   padding: 5rem;
 }
 
+.unsplash-mark-div {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+}
+
 mark.unsplash-mark {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
