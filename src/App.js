@@ -1,63 +1,59 @@
-import React, { useEffect } from "react";
-import axios from "axios";
+/* global chrome */
 
-import Spotlight from "./components/Spotlight";
-import Overview from "./components/Overview";
+import React, { useState } from "react";
+
+import Spotlight from "./components/spotlight/Spotlight";
+import Overview from "./components/overview/Overview";
+import Preferences from "./components/Preferences";
+import UnsplashSignature from "./components/UnsplashSignature";
 import "./App.css";
-// import { getRandomPhotoURL } from "./unsplash.js";
 
-const apiBaseURL = "https://api.unsplash.com/";
-const authHeader = "Client-ID " + process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
-const unsplashURLSuffix = "?utm_source=pgh_keeps_tabs&utm_medium=referral";
-const unsplashURL = "https://unsplash.com/" + unsplashURLSuffix;
+const default_prefs = {
+  restaurant: { name: "Restaurants", checked: true },
+  beauty: { name: "Beauty", checked: true },
+  education: { name: "Education", checked: true },
+};
 
 function App() {
   const [unsplashRes, setUnsplashRes] = React.useState(null);
+  const [prefs, setPrefs] = useState(default_prefs);
 
-  // GET RANDOM PHOTO REQUEST
-  function setRandomPhotoURL() {
-    return axios
-      .get(apiBaseURL + "photos/random?orientation=landscape", {
-        headers: {
-          "Accept-Version": "v1",
-          Authorization: authHeader,
-        },
-        params: {
-          query: "background",
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        setUnsplashRes({
-          imageURL: res.data.urls.regular,
-          userURL: res.data.user.links.html,
-          userFullName:
-            res.data.user.first_name + " " + res.data.user.last_name,
-        });
-        triggerDownload(res.data.id);
-        return res.data.urls.regular;
-      })
-      .catch((err) => console.error(err));
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
   }
 
-  // TRIGGER PHOTO DOWNLOAD
-  function triggerDownload(photoId) {
-    axios
-      .get(apiBaseURL + "photos/" + photoId + "/download", {
-        headers: {
-          "Accept-Version": "v1",
-          Authorization: authHeader,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.error(err));
+  function closeModal() {
+    setIsOpen(false);
   }
 
-  useEffect(() => {
-    setRandomPhotoURL();
+  React.useEffect(() => {
+    chrome.storage.local.get(
+      { business_prefs: default_prefs },
+      function (result) {
+        setPrefs(result.business_prefs);
+        console.log(
+          "Fetched chrome storage local business_prefs",
+          result.business_prefs
+        );
+      }
+    );
   }, []);
+
+  function handlePrefsCheck(pref, checked) {
+    let updated_prefs = {
+      ...prefs,
+      [pref]: { ...prefs[pref], checked: checked },
+    };
+    console.log(`Updated ${pref} to`, updated_prefs[pref].checked);
+
+    chrome.storage.local.set({ business_prefs: updated_prefs }, function () {
+      // Notify that we saved.
+      setPrefs(updated_prefs);
+      console.log("Set chrome storage local business_prefs", updated_prefs);
+    });
+  }
 
   return (
     <div
@@ -67,23 +63,26 @@ function App() {
       }}
     >
       <div>
-        <Overview />
+        <Overview
+          prefEntries={Object.entries(prefs).filter(
+            ([pref, object]) => object.checked
+          )}
+          handlePrefsCheck={handlePrefsCheck}
+          openModal={openModal}
+        />
         <Spotlight />
+        <Preferences
+          prefs={prefs}
+          handlePrefsCheck={handlePrefsCheck}
+          openModal={openModal}
+          closeModal={closeModal}
+          modalIsOpen={modalIsOpen}
+        />
       </div>
-      {unsplashRes && (
-        <p>
-          <mark>
-            Photo by{" "}
-            <a className="unsplash" href={unsplashRes.userURL}>
-              {unsplashRes.userFullName}
-            </a>{" "}
-            on{" "}
-            <a className="unsplash" href={unsplashURL}>
-              Unsplash
-            </a>
-          </mark>
-        </p>
-      )}
+      <UnsplashSignature
+        setUnsplashRes={setUnsplashRes}
+        unsplashRes={unsplashRes}
+      />
     </div>
   );
 }

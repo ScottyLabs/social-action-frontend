@@ -1,5 +1,5 @@
 .spotlight {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
 }
 .spotlight-body {
   padding: 1rem;
@@ -7,10 +7,12 @@
 }
 
 .spotlight-body h2 {
+  font-size: 2vw;
   margin-top: 0;
 }
 
 .spotlight-body button {
+  font-size: 1vw;
   border: none;
   background: #333;
   color: white;
@@ -32,4 +34,8 @@
   text-align: center;
   background: #333;
   color: white;
+}
+
+button {
+  cursor: pointer
 }

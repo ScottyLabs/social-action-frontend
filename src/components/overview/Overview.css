@@ -10,21 +10,22 @@
 }
 .time h2 {
   margin: 0;
+  font-size: 1.8vw;
   font-weight: normal;
 }
 
 .overview-body {
-  margin-top: 3rem;
+  margin-top: 2rem;
   color: white;
-}
-.overview-body h2 {
-  font-weight: normal;
+  text-align: center;
 }
 
-input {
-  border: none;
-  padding: 1rem 0;
+.list-horizontal {
+  display: flex;
   width: 100%;
-  margin: 1rem 0;
-  font-size: 2rem;
+}
+
+.overview-body h2 {
+  font-size: 2vw;
+  font-weight: normal;
 }
