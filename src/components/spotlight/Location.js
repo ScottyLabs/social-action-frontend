@@ -1,8 +1,8 @@
 import React from "react";
-function Location() {
+function Location(props) {
   return (
     <div className="subtitle">
-      <b>Location</b>: Pittsburgh, PA
+      <b>Location</b>: {props.address ? props.address : ""}
     </div>
   );
 }

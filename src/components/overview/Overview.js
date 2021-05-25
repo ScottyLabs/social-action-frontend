@@ -26,12 +26,18 @@ function Overview(props) {
         <h2>I'm looking to support minority-owned businesses in...</h2>
         <List horizontal className="list-horizontal">
           {props.prefEntries.map(([pref, object]) => (
-            <List.Item>
-              <Label tag size="large" color={labelColorDict[pref]}>
+            <List.Item key={`list_item_${pref}`}>
+              <Label
+                tag
+                size="large"
+                color={labelColorDict[pref]}
+                key={`label_tag_${pref}`}
+              >
                 {object.name}
                 <Icon
                   name="delete"
                   onClick={() => props.handlePrefsCheck(pref, false)}
+                  key={`list_item_icon_${pref}`}
                 />
               </Label>
             </List.Item>

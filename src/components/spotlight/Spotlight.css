@@ -35,3 +35,7 @@
   background: #333;
   color: white;
 }
+
+button {
+  cursor: pointer
+}

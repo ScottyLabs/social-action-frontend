@@ -9,7 +9,7 @@ const unsplashURL = "https://unsplash.com/" + unsplashURLSuffix;
 function UnsplashSignature(props) {
   // GET RANDOM PHOTO REQUEST
   function setRandomPhotoURL() {
-    return axios
+    axios
       .get(apiBaseURL + "photos/random?orientation=landscape", {
         headers: {
           "Accept-Version": "v1",

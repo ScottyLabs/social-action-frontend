@@ -1,8 +1,8 @@
 import React from "react";
-function Tags() {
+function Tags(props) {
   return (
     <div className="subtitle">
-      <b>Tags</b>: food, corn
+      <b>Tags</b>: {props.tags ? props.tags.join([', ']) : ""}
     </div>
   );
 }
